@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portal de Estágio | UniVC</title>
+  <meta name="description" content="Portal de Estágio do Centro Universitário Vale do Cricaré: cadastre seu estágio, sua empresa concedente, seus documentos e entregue o relatório final.">
+  <link rel="icon" href="assets/logo-univc.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+  <div class="demo-banner" id="demoBanner" hidden>
+    <strong>Modo demonstração.</strong> Os dados não estão sendo gravados. Configure a URL do Apps Script em <code>assets/config.js</code>.
+  </div>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a href="#inicio" class="brand" aria-label="UniVC – Portal de Estágio, início">
+        <img src="assets/logo-univc.png" alt="UNIVC – Centro Universitário Vale do Cricaré" width="150" height="54">
+        <span class="brand-tag">Portal de Estágio</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainNav" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="main-nav" id="mainNav">
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#links">Como enviar arquivos</a>
+        <a href="#cadastro">Cadastrar estágio</a>
+        <a href="#relatorio">Entregar relatório</a>
+        <a href="#duvidas">Dúvidas</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="inicio">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <span class="eyebrow">Coordenação de Estágios · UniVC</span>
+          <h1>Seu estágio registrado, do início ao relatório final.</h1>
+          <p class="lead">Cadastre seus dados, a empresa concedente e os documentos do estágio em poucos minutos. Ao final, entregue aqui mesmo o seu relatório.</p>
+          <div class="hero-cta">
+            <a href="#cadastro" class="btn btn-accent btn-lg">Cadastrar meu estágio</a>
+            <a href="#relatorio" class="btn btn-ghost-light btn-lg">Entregar relatório</a>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Regra principal para documentos">
+          <div class="hero-card-badge">Importante</div>
+          <h2>Você não envia arquivos. Você envia <em>links públicos</em>.</h2>
+          <ol class="mini-steps">
+            <li><span class="ms-num">1</span><span>Suba o arquivo no <strong>seu</strong> Google Drive ou OneDrive</span></li>
+            <li><span class="ms-num">2</span><span>Compartilhe como <strong>“Qualquer pessoa com o link”</strong></span></li>
+            <li><span class="ms-num">3</span><span>Cole o link aqui e clique em <strong>Verificar</strong></span></li>
+          </ol>
+          <div class="hero-card-foot">
+            <span class="pill pill-ok">✓ Público</span>
+            <span class="pill pill-bad">✗ Privado é recusado</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ COMO FUNCIONA ============ -->
+    <section class="section" id="como-funciona">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow eyebrow-dark">Passo a passo</span>
+          <h2>Como funciona</h2>
+          <p>Quatro etapas, todas pelo portal. Seu rascunho fica salvo neste navegador enquanto você preenche.</p>
+        </header>
+        <div class="flow">
+          <article class="flow-item">
+            <div class="flow-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+            </div>
+            <h3>1. Seus dados</h3>
+            <p>Dados pessoais, matrícula, curso e período.</p>
+          </article>
+          <article class="flow-item">
+            <div class="flow-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6M9 10h.01M15 10h.01"/></svg>
+            </div>
+            <h3>2. Empresa</h3>
+            <p>Cadastro da empresa concedente e do supervisor.</p>
+          </article>
+          <article class="flow-item">
+            <div class="flow-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
+            </div>
+            <h3>3. Estágio</h3>
+            <p>Período, carga horária, orientador e atividades.</p>
+          </article>
+          <article class="flow-item">
+            <div class="flow-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>
+            </div>
+            <h3>4. Documentos</h3>
+            <p>Links públicos do TCE, plano de atividades e, depois, do relatório.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ COMO ENVIAR LINKS ============ -->
+    <section class="section section-tint" id="links">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow eyebrow-dark">Documentos</span>
+          <h2>Como deixar seu arquivo público</h2>
+          <p>Os arquivos ficam no <strong>seu próprio drive</strong>. O portal só guarda o link e confere se ele abre para qualquer pessoa, sem login.</p>
+        </header>
+
+        <div class="alert alert-warn" role="note">
+          <div class="alert-icon" aria-hidden="true">!</div>
+          <div>
+            <strong>É obrigatório que o link seja público.</strong>
+            O portal testa cada link como se fosse um visitante sem conta. Se pedir login ou “solicitar acesso”, o link é recusado e o cadastro não é enviado.
+            Use PDF sempre que possível e não apague o arquivo do seu drive depois de enviar.
+          </div>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="Escolha seu drive">
+          <button class="tab is-active" role="tab" aria-selected="true" aria-controls="tab-google" id="tabbtn-google">
+            <svg class="tab-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="#0F9D58" d="M7.7 3h8.6l6 10.4h-8.6z"/><path fill="#FFC107" d="M1.7 13.4 6 21l6-10.4L7.7 3z"/><path fill="#4285F4" d="M6 21h12.3l4-7.6H10.3z"/></svg>
+            Google Drive
+          </button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="tab-onedrive" id="tabbtn-onedrive" tabindex="-1">
+            <svg class="tab-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="#0364B8" d="M9.5 8.2a6 6 0 0 1 10.9 2.6A4.4 4.4 0 0 1 19.6 19H7.5a5 5 0 0 1-.8-9.9 5.9 5.9 0 0 1 2.8-.9z"/></svg>
+            OneDrive
+          </button>
+        </div>
+
+        <div class="tab-panel" role="tabpanel" id="tab-google" aria-labelledby="tabbtn-google">
+          <ol class="howto">
+            <li>
+              <span class="howto-num">1</span>
+              <div><h3>Faça o upload</h3><p>Acesse <strong>drive.google.com</strong>, clique em <strong>+ Novo › Upload de arquivo</strong> e escolha o documento.</p></div>
+            </li>
+            <li>
+              <span class="howto-num">2</span>
+              <div><h3>Abra o compartilhamento</h3><p>Clique com o botão direito no arquivo › <strong>Compartilhar › Compartilhar</strong>.</p></div>
+            </li>
+            <li>
+              <span class="howto-num">3</span>
+              <div><h3>Torne público</h3><p>Em <strong>Acesso geral</strong>, troque “Restrito” por <strong>“Qualquer pessoa com o link”</strong> (papel: Leitor).</p>
+                <div class="fake-ui" aria-hidden="true">
+                  <span class="fake-label">Acesso geral</span>
+                  <span class="fake-select fake-bad">Restrito</span>
+                  <span class="fake-arrow">→</span>
+                  <span class="fake-select fake-good">Qualquer pessoa com o link</span>
+                </div>
+              </div>
+            </li>
+            <li>
+              <span class="howto-num">4</span>
+              <div><h3>Copie e cole</h3><p>Clique em <strong>Copiar link</strong>, cole no campo do portal e clique em <strong>Verificar</strong>.</p></div>
+            </li>
+          </ol>
+          <p class="note">Conta institucional (@univc / Google Workspace)? Se a opção “Qualquer pessoa” estiver bloqueada, use uma conta pessoal do Google ou o OneDrive.</p>
+        </div>
+
+        <div class="tab-panel" role="tabpanel" id="tab-onedrive" aria-labelledby="tabbtn-onedrive" hidden>
+          <ol class="howto">
+            <li>
+              <span class="howto-num">1</span>
+              <div><h3>Faça o upload</h3><p>Acesse <strong>onedrive.live.com</strong> (ou o OneDrive do Office 365), clique em <strong>+ Adicionar novo › Carregar arquivos</strong>.</p></div>
+            </li>
+            <li>
+              <span class="howto-num">2</span>
+              <div><h3>Abra o compartilhamento</h3><p>Selecione o arquivo e clique em <strong>Compartilhar</strong>, depois no ícone de <strong>engrenagem / configurações do link</strong>.</p></div>
+            </li>
+            <li>
+              <span class="howto-num">3</span>
+              <div><h3>Torne público</h3><p>Escolha <strong>“Qualquer pessoa”</strong> (Anyone), desmarque senha e data de expiração e aplique.</p>
+                <div class="fake-ui" aria-hidden="true">
+                  <span class="fake-label">Compartilhar com</span>
+                  <span class="fake-select fake-bad">Pessoas na organização</span>
+                  <span class="fake-arrow">→</span>
+                  <span class="fake-select fake-good">Qualquer pessoa</span>
+                </div>
+              </div>
+            </li>
+            <li>
+              <span class="howto-num">4</span>
+              <div><h3>Copie e cole</h3><p>Clique em <strong>Copiar link</strong>, cole no campo do portal e clique em <strong>Verificar</strong>.</p></div>
+            </li>
+          </ol>
+          <p class="note">Links com senha, com data de expiração ou restritos à organização são recusados.</p>
+        </div>
+
+        <!-- Testador avulso -->
+        <div class="tester card">
+          <div class="tester-head">
+            <h3>Teste um link agora</h3>
+            <p>Antes de começar o cadastro, confira se o seu link está público.</p>
+          </div>
+          <div class="link-field" data-link-field data-standalone>
+            <div class="link-row">
+              <input type="url" inputmode="url" placeholder="https://drive.google.com/file/d/… ou https://1drv.ms/…" aria-label="Link para testar" data-link-input>
+              <button type="button" class="btn btn-primary" data-link-check>Verificar</button>
+            </div>
+            <div class="link-status" data-link-status aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CADASTRO (WIZARD) ============ -->
+    <section class="section" id="cadastro">
+      <div class="container container-narrow">
+        <header class="section-head">
+          <span class="eyebrow eyebrow-dark">Novo registro</span>
+          <h2>Cadastrar estágio</h2>
+          <p>Campos com <span class="req">*</span> são obrigatórios.</p>
+        </header>
+
+        <ol class="stepper" id="stepper" aria-label="Etapas do cadastro">
+          <li class="is-current"><span class="st-dot">1</span><span class="st-label">Dados pessoais</span></li>
+          <li><span class="st-dot">2</span><span class="st-label">Empresa</span></li>
+          <li><span class="st-dot">3</span><span class="st-label">Estágio</span></li>
+          <li><span class="st-dot">4</span><span class="st-label">Documentos</span></li>
+          <li><span class="st-dot">5</span><span class="st-label">Revisão</span></li>
+        </ol>
+
+        <form class="wizard card" id="wizard" novalidate>
+          <!-- ETAPA 1 -->
+          <fieldset class="step" data-step="1">
+            <legend>Dados pessoais</legend>
+            <div class="grid">
+              <div class="field col-2">
+                <label for="nome">Nome completo <span class="req">*</span></label>
+                <input id="nome" name="nome" autocomplete="name" required>
+              </div>
+              <div class="field">
+                <label for="cpf">CPF <span class="req">*</span></label>
+                <input id="cpf" name="cpf" inputmode="numeric" placeholder="000.000.000-00" data-mask="cpf" required>
+              </div>
+              <div class="field">
+                <label for="matricula">Matrícula <span class="req">*</span></label>
+                <input id="matricula" name="matricula" inputmode="numeric" required>
+              </div>
+              <div class="field">
+                <label for="nascimento">Data de nascimento <span class="req">*</span></label>
+                <input id="nascimento" name="nascimento" type="date" required>
+              </div>
+              <div class="field">
+                <label for="telefone">Celular / WhatsApp <span class="req">*</span></label>
+                <input id="telefone" name="telefone" inputmode="tel" placeholder="(27) 90000-0000" data-mask="phone" autocomplete="tel" required>
+              </div>
+              <div class="field col-2">
+                <label for="email">E-mail <span class="req">*</span></label>
+                <input id="email" name="email" type="email" autocomplete="email" required>
+              </div>
+            </div>
+
+            <div class="field">
+              <span class="label" id="curso-label">Qual é o seu curso? <span class="req">*</span></span>
+              <div class="course-grid" id="courseGrid" role="radiogroup" aria-labelledby="curso-label"></div>
+              <div class="field-error" data-error-for="curso"></div>
+            </div>
+
+            <div class="grid">
+              <div class="field">
+                <span class="label" id="turno-label">Turno <span class="req">*</span></span>
+                <div class="seg" role="radiogroup" aria-labelledby="turno-label">
+                  <label><input type="radio" name="turno" value="Matutino" required><span>Matutino</span></label>
+                  <label><input type="radio" name="turno" value="Noturno"><span>Noturno</span></label>
+                  <label><input type="radio" name="turno" value="Integral"><span>Integral</span></label>
+                </div>
+                <div class="field-error" data-error-for="turno"></div>
+              </div>
+              <div class="field">
+                <label for="periodo">Período atual <span class="req">*</span></label>
+                <select id="periodo" name="periodo" required>
+                  <option value="">Selecione</option>
+                  <option>1º</option><option>2º</option><option>3º</option><option>4º</option><option>5º</option>
+                  <option>6º</option><option>7º</option><option>8º</option><option>9º</option><option>10º</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- ETAPA 2 -->
+          <fieldset class="step" data-step="2" hidden>
+            <legend>Empresa concedente</legend>
+            <div class="grid">
+              <div class="field">
+                <label for="cnpj">CNPJ <span class="req">*</span></label>
+                <input id="cnpj" name="cnpj" inputmode="numeric" placeholder="00.000.000/0000-00" data-mask="cnpj" required>
+                <div class="hint" id="cnpjHint">Digite o CNPJ e tentaremos preencher os dados da empresa.</div>
+              </div>
+              <div class="field">
+                <label for="empresa">Razão social / nome <span class="req">*</span></label>
+                <input id="empresa" name="empresa" required>
+              </div>
+              <div class="field col-2">
+                <label for="endereco">Endereço <span class="req">*</span></label>
+                <input id="endereco" name="endereco" placeholder="Rua, número, bairro" required>
+              </div>
+              <div class="field">
+                <label for="cidade">Cidade <span class="req">*</span></label>
+                <input id="cidade" name="cidade" required>
+              </div>
+              <div class="field">
+                <label for="uf">UF <span class="req">*</span></label>
+                <select id="uf" name="uf" required>
+                  <option value="">Selecione</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="empresaTelefone">Telefone da empresa</label>
+                <input id="empresaTelefone" name="empresaTelefone" inputmode="tel" data-mask="phone">
+              </div>
+              <div class="field">
+                <label for="empresaEmail">E-mail da empresa</label>
+                <input id="empresaEmail" name="empresaEmail" type="email">
+              </div>
+            </div>
+
+            <h3 class="sub">Supervisor(a) na empresa</h3>
+            <div class="grid">
+              <div class="field">
+                <label for="supervisor">Nome <span class="req">*</span></label>
+                <input id="supervisor" name="supervisor" required>
+              </div>
+              <div class="field">
+                <label for="supervisorCargo">Cargo / formação <span class="req">*</span></label>
+                <input id="supervisorCargo" name="supervisorCargo" required>
+              </div>
+              <div class="field">
+                <label for="supervisorEmail">E-mail <span class="req">*</span></label>
+                <input id="supervisorEmail" name="supervisorEmail" type="email" required>
+              </div>
+              <div class="field">
+                <label for="supervisorTelefone">Telefone</label>
+                <input id="supervisorTelefone" name="supervisorTelefone" inputmode="tel" data-mask="phone">
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- ETAPA 3 -->
+          <fieldset class="step" data-step="3" hidden>
+            <legend>Dados do estágio</legend>
+            <div class="grid">
+              <div class="field">
+                <span class="label" id="tipo-label">Tipo <span class="req">*</span></span>
+                <div class="seg" role="radiogroup" aria-labelledby="tipo-label">
+                  <label><input type="radio" name="tipo" value="Obrigatório" required><span>Obrigatório</span></label>
+                  <label><input type="radio" name="tipo" value="Não obrigatório"><span>Não obrigatório</span></label>
+                </div>
+                <div class="field-error" data-error-for="tipo"></div>
+              </div>
+              <div class="field">
+                <span class="label" id="mod-label">Modalidade <span class="req">*</span></span>
+                <div class="seg" role="radiogroup" aria-labelledby="mod-label">
+                  <label><input type="radio" name="modalidade" value="Presencial" required><span>Presencial</span></label>
+                  <label><input type="radio" name="modalidade" value="Híbrido"><span>Híbrido</span></label>
+                  <label><input type="radio" name="modalidade" value="Remoto"><span>Remoto</span></label>
+                </div>
+                <div class="field-error" data-error-for="modalidade"></div>
+              </div>
+              <div class="field">
+                <label for="dataInicio">Data de início <span class="req">*</span></label>
+                <input id="dataInicio" name="inicio" type="date" required>
+              </div>
+              <div class="field">
+                <label for="termino">Data de término prevista <span class="req">*</span></label>
+                <input id="termino" name="termino" type="date" required>
+              </div>
+              <div class="field">
+                <label for="horasSemanais">Horas por semana <span class="req">*</span></label>
+                <input id="horasSemanais" name="horasSemanais" type="number" min="1" max="40" required>
+                <div class="hint">Lei 11.788/2008: até 30 h/semana (6 h/dia) para ensino superior.</div>
+              </div>
+              <div class="field">
+                <label for="cargaTotal">Carga horária total <span class="req">*</span></label>
+                <input id="cargaTotal" name="cargaTotal" type="number" min="1" required>
+              </div>
+              <div class="field col-2">
+                <label for="orientador">Professor(a) orientador(a) na UniVC <span class="req">*</span></label>
+                <input id="orientador" name="orientador" required>
+              </div>
+              <div class="field col-2">
+                <label for="atividades">Principais atividades <span class="req">*</span></label>
+                <textarea id="atividades" name="atividades" rows="4" maxlength="1500" placeholder="Descreva, em poucas linhas, o que você fará no estágio." required></textarea>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- ETAPA 4 -->
+          <fieldset class="step" data-step="4" hidden>
+            <legend>Documentos (links públicos)</legend>
+            <div class="alert alert-info">
+              <div class="alert-icon" aria-hidden="true">i</div>
+              <div>Cole o link de cada arquivo do seu Google Drive ou OneDrive e clique em <strong>Verificar</strong>. Só é possível avançar quando todos os obrigatórios estiverem <span class="pill pill-ok pill-sm">✓ Público</span>.
+                <a href="#links">Como deixar público?</a></div>
+            </div>
+
+            <div class="doc-list">
+              <div class="doc card-inner" data-link-field data-name="linkTce" data-required>
+                <div class="doc-head">
+                  <div>
+                    <h3>Termo de Compromisso de Estágio (TCE) <span class="req">*</span></h3>
+                    <p>Assinado pelo estudante, pela empresa e pela UniVC.</p>
+                  </div>
+                  <span class="doc-badge" data-link-badge>Pendente</span>
+                </div>
+                <div class="link-row">
+                  <input type="url" inputmode="url" name="linkTce" placeholder="Cole aqui o link público" data-link-input aria-label="Link do Termo de Compromisso">
+                  <button type="button" class="btn btn-primary" data-link-check>Verificar</button>
+                </div>
+                <div class="link-status" data-link-status aria-live="polite"></div>
+              </div>
+
+              <div class="doc card-inner" data-link-field data-name="linkPlano" data-required>
+                <div class="doc-head">
+                  <div>
+                    <h3>Plano de Atividades <span class="req">*</span></h3>
+                    <p>Atividades previstas, assinadas pelo supervisor e pelo orientador.</p>
+                  </div>
+                  <span class="doc-badge" data-link-badge>Pendente</span>
+                </div>
+                <div class="link-row">
+                  <input type="url" inputmode="url" name="linkPlano" placeholder="Cole aqui o link público" data-link-input aria-label="Link do Plano de Atividades">
+                  <button type="button" class="btn btn-primary" data-link-check>Verificar</button>
+                </div>
+                <div class="link-status" data-link-status aria-live="polite"></div>
+              </div>
+
+              <div class="doc card-inner" data-link-field data-name="linkSeguro">
+                <div class="doc-head">
+                  <div>
+                    <h3>Apólice de seguro <span class="opt">opcional</span></h3>
+                    <p>Comprovante do seguro contra acidentes pessoais, se já tiver.</p>
+                  </div>
+                  <span class="doc-badge" data-link-badge>Opcional</span>
+                </div>
+                <div class="link-row">
+                  <input type="url" inputmode="url" name="linkSeguro" placeholder="Cole aqui o link público" data-link-input aria-label="Link da apólice de seguro">
+                  <button type="button" class="btn btn-primary" data-link-check>Verificar</button>
+                </div>
+                <div class="link-status" data-link-status aria-live="polite"></div>
+              </div>
+            </div>
+            <p class="note">O relatório final é entregue depois, na seção <a href="#relatorio">Entregar relatório</a>, usando o protocolo que você vai receber.</p>
+          </fieldset>
+
+          <!-- ETAPA 5 -->
+          <fieldset class="step" data-step="5" hidden>
+            <legend>Revise e envie</legend>
+            <div class="review" id="review"></div>
+            <label class="check">
+              <input type="checkbox" name="lgpd" id="lgpd" required>
+              <span>Declaro que as informações são verdadeiras e autorizo a UniVC a tratar estes dados para fins de acompanhamento do estágio, conforme a LGPD (Lei 13.709/2018).</span>
+            </label>
+            <div class="field-error" data-error-for="lgpd"></div>
+          </fieldset>
+
+          <div class="form-error" id="formError" role="alert" hidden></div>
+
+          <div class="wizard-nav">
+            <button type="button" class="btn btn-ghost" id="btnBack" hidden>← Voltar</button>
+            <span class="step-count" id="stepCount">Etapa 1 de 5</span>
+            <button type="button" class="btn btn-primary" id="btnNext">Continuar →</button>
+            <button type="submit" class="btn btn-accent" id="btnSubmit" hidden>Enviar cadastro</button>
+          </div>
+        </form>
+
+        <div class="success card" id="success" hidden tabindex="-1">
+          <div class="success-icon" aria-hidden="true">✓</div>
+          <h3>Cadastro enviado!</h3>
+          <p>Guarde seu número de protocolo. Você vai precisar dele para entregar o relatório final.</p>
+          <div class="protocol">
+            <span id="protocolValue">—</span>
+            <button type="button" class="btn btn-ghost btn-sm" id="copyProtocol">Copiar</button>
+          </div>
+          <p class="note">Uma cópia também foi registrada para a Coordenação de Estágios. Não apague os arquivos do seu drive.</p>
+          <button type="button" class="btn btn-primary" id="newRegistration">Fazer outro cadastro</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ RELATÓRIO ============ -->
+    <section class="section section-tint" id="relatorio">
+      <div class="container container-narrow">
+        <header class="section-head">
+          <span class="eyebrow eyebrow-dark">Conclusão</span>
+          <h2>Entregar relatório de estágio</h2>
+          <p>Informe o protocolo recebido no cadastro e o seu CPF. O relatório segue a mesma regra: link público do seu drive.</p>
+        </header>
+
+        <form class="card report-form" id="reportForm" novalidate>
+          <div class="grid">
+            <div class="field">
+              <label for="rProtocolo">Protocolo <span class="req">*</span></label>
+              <input id="rProtocolo" name="protocolo" placeholder="EST-2026-000000" required>
+            </div>
+            <div class="field">
+              <label for="rCpf">CPF <span class="req">*</span></label>
+              <input id="rCpf" name="cpf" inputmode="numeric" placeholder="000.000.000-00" data-mask="cpf" required>
+            </div>
+          </div>
+
+          <div class="doc-list">
+            <div class="doc card-inner" data-link-field data-name="linkRelatorio" data-required>
+              <div class="doc-head">
+                <div>
+                  <h3>Relatório final de estágio <span class="req">*</span></h3>
+                  <p>Em PDF, com as assinaturas exigidas pelo seu curso.</p>
+                </div>
+                <span class="doc-badge" data-link-badge>Pendente</span>
+              </div>
+              <div class="link-row">
+                <input type="url" inputmode="url" name="linkRelatorio" placeholder="Cole aqui o link público" data-link-input aria-label="Link do relatório final">
+                <button type="button" class="btn btn-primary" data-link-check>Verificar</button>
+              </div>
+              <div class="link-status" data-link-status aria-live="polite"></div>
+            </div>
+
+            <div class="doc card-inner" data-link-field data-name="linkAvaliacao">
+              <div class="doc-head">
+                <div>
+                  <h3>Ficha de avaliação do supervisor <span class="opt">opcional</span></h3>
+                  <p>Se o seu curso exigir.</p>
+                </div>
+                <span class="doc-badge" data-link-badge>Opcional</span>
+              </div>
+              <div class="link-row">
+                <input type="url" inputmode="url" name="linkAvaliacao" placeholder="Cole aqui o link público" data-link-input aria-label="Link da ficha de avaliação">
+                <button type="button" class="btn btn-primary" data-link-check>Verificar</button>
+              </div>
+              <div class="link-status" data-link-status aria-live="polite"></div>
+            </div>
+
+            <div class="doc card-inner" data-link-field data-name="linkFrequencia">
+              <div class="doc-head">
+                <div>
+                  <h3>Folha de frequência <span class="opt">opcional</span></h3>
+                  <p>Controle de horas assinado pelo supervisor.</p>
+                </div>
+                <span class="doc-badge" data-link-badge>Opcional</span>
+              </div>
+              <div class="link-row">
+                <input type="url" inputmode="url" name="linkFrequencia" placeholder="Cole aqui o link público" data-link-input aria-label="Link da folha de frequência">
+                <button type="button" class="btn btn-primary" data-link-check>Verificar</button>
+              </div>
+              <div class="link-status" data-link-status aria-live="polite"></div>
+            </div>
+          </div>
+
+          <div class="form-error" id="reportError" role="alert" hidden></div>
+          <div class="form-ok" id="reportOk" role="status" hidden></div>
+
+          <div class="wizard-nav">
+            <span></span>
+            <button type="submit" class="btn btn-accent" id="btnReport">Entregar relatório</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ DÚVIDAS ============ -->
+    <section class="section" id="duvidas">
+      <div class="container container-narrow">
+        <header class="section-head">
+          <span class="eyebrow eyebrow-dark">FAQ</span>
+          <h2>Dúvidas frequentes</h2>
+        </header>
+        <div class="faq">
+          <details>
+            <summary>Por que não posso anexar o arquivo direto no portal?</summary>
+            <p>Os documentos ficam sob sua guarda, no seu próprio drive. O portal registra apenas o link, o que deixa o envio mais rápido e evita limites de tamanho. Por isso é indispensável que o link esteja público.</p>
+          </details>
+          <details>
+            <summary>Como o portal sabe que meu link está público?</summary>
+            <p>Ao clicar em Verificar, o servidor da UniVC tenta abrir o link sem estar logado em nenhuma conta. Se o Google ou a Microsoft pedirem login, o link é marcado como privado. A verificação é repetida no momento do envio.</p>
+          </details>
+          <details>
+            <summary>Meu link aparece como “privado”, mas eu compartilhei com o professor.</summary>
+            <p>Compartilhar com e-mails específicos não deixa o arquivo público. É preciso alterar o acesso geral para “Qualquer pessoa com o link” (Google) ou “Qualquer pessoa” (OneDrive).</p>
+          </details>
+          <details>
+            <summary>Posso usar link de pasta?</summary>
+            <p>Pode, desde que a pasta também esteja pública. Mesmo assim, prefira um link por arquivo: a análise fica mais rápida.</p>
+          </details>
+          <details>
+            <summary>Perdi meu protocolo. E agora?</summary>
+            <p>Escreva para a Coordenação de Estágios informando nome, CPF e matrícula: <a class="contact-email" href="mailto:estagio@univc.com.br">estagio@univc.com.br</a>.</p>
+          </details>
+          <details>
+            <summary>Posso apagar ou mover o arquivo depois de enviar?</summary>
+            <p>Não. Se o arquivo for apagado, movido ou tiver o compartilhamento alterado, o link deixa de funcionar e o seu estágio pode ficar pendente.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <img src="assets/logo-univc.png" alt="UNIVC" class="footer-logo" width="120" height="43">
+        <p>Centro Universitário Vale do Cricaré<br>São Mateus · Espírito Santo</p>
+      </div>
+      <div>
+        <h4>Coordenação de Estágios</h4>
+        <p><a class="contact-email" href="mailto:estagio@univc.com.br">estagio@univc.com.br</a></p>
+      </div>
+      <div>
+        <h4>Links</h4>
+        <p><a href="https://www.univc.com.br" target="_blank" rel="noopener">Site da UniVC</a></p>
+      </div>
+    </div>
+    <div class="container footer-bottom">© <span id="year"></span> UniVC · Portal de Estágio</div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="assets/config.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
